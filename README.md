@@ -4,9 +4,9 @@ Currently only works with a modified game that exposes the currently loaded leve
 
 # Installation and usage
 
-Copy the Assembly-CSharp.dll to 
+Copy the ```Assembly-CSharp.dll``` to 
 ```
-<SteamLibrary>steamapps/common/STATUS INSANE/STATUS INSANE_Data/Managed
+<SteamLibrary>/steamapps/common/STATUS INSANE/STATUS INSANE_Data/Managed
 ```
 
 It's a good idea to make a backup of the old file, in case you want to revert it, but if you forget the backup, you can also use Steam's Verify Integrity -functionality to restore the game to the original version.
