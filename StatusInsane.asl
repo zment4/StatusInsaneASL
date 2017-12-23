@@ -3,6 +3,10 @@ state("STATUS INSANE") {
 	bool isLoading : "mono.dll", 0x00296BC8, 0x20, 0x330, 0xe4; 
 }
 
+startup {
+	vars.timerModel = new TimerModel { CurrentState = timer };
+}
+
 split {
 	if (old.level != current.level)
 		return true;
@@ -23,4 +27,7 @@ isLoading {
 	return current.isLoading;
 }
 
-	
+update {
+	if (current.level == 26 && old.level == 25)
+		vars.timerModel.Reset();
+}
