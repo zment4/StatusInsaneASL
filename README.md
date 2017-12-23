@@ -1,8 +1,8 @@
-~~LiveSplit Automatic Splitter for STATUS: INSANE~~
+# LiveSplit Automatic Splitter for STATUS: INSANE
 
 Currently only works with a modified game that exposes the currently loaded level ID.
 
-~~Installation and usage~~
+# Installation and usage
 
 Copy the Assembly-CSharp.dll to 
 ```
@@ -14,7 +14,8 @@ It's a good idea to make a backup of the old file, in case you want to revert it
 The only modifications done to the file is to expose the currently loaded level index as a static integer for easier access and update it on level load, as well as printing the current level index and name to screen (defaults to off, toggled with F10)
 
 
-~~Usage of ASL with LiveSplit~~
+# Usage of ASL with LiveSplit
+
 The ASL needs to be loaded with LiveSplit by adding a Scriptable Auto Splitter layout component (From Edit Layout...->[+ sign]) and selecting the ASL file. The settings can be reached by double clicking the component on the list. The process should be automatically identified.
 
 When the game is on the main menu, the timer is reset. When the first level is loaded (ie. the first frame where the current level is Igor's Room), the timer starts. All the splits are set to scene changes. 
