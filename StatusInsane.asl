@@ -1,6 +1,6 @@
-state("STATUS INSANE") {
-	
-	int level 	: "mono.dll", 0x00296BC8, 0x20, 0x330, 0xe0;
+state("STATUS INSANE") {	
+	int level 	   : "mono.dll", 0x00296BC8, 0x20, 0x330, 0xe0;
+	bool isLoading : "mono.dll", 0x00296BC8, 0x20, 0x330, 0xe4; 
 }
 
 split {
@@ -18,4 +18,9 @@ start {
 reset {
 	return current.level == 26;
 }
+
+isLoading {
+	return current.isLoading;
+}
+
 	

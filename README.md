@@ -24,4 +24,4 @@ There's no detection that the next scene change is the correct one (at least yet
 
 The autosplit timer stops the on the first frame of the ending movie level. For reasons unknown, the last split (ie. finishing the run) disables automatic reseting. Thus, if you want to save your splits and times before your next run, press Numpad 1 (Start/Split hotkey). If you want to discard this run from the stats, press Numpad 3 (Reset). After the run has been manually reset by either saving the splits and runtime or resetting, the automatic splitter functions as it should once again.
 
-
+Sensing loading times is supported in both the modified game .dll as the autosplitter ASL file. To skip level loading from timer, remember to set the timer to Game Time from Compare Against in the context menu.
