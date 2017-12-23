@@ -1,8 +1,8 @@
 # LiveSplit Automatic Splitter for STATUS: INSANE
 
-Currently only works with a modified game that exposes the currently loaded level ID.
+ASL file for LiveSplit automatic splitting, with the splits properly set up for the auto-splitter. Currently only works with a modified game that exposes the currently loaded level ID, which is provided with permission from the developer.
 
-# Installation and usage
+## Installation and usage
 
 Copy the ```Assembly-CSharp.dll``` to 
 ```
@@ -14,7 +14,7 @@ It's a good idea to make a backup of the old file, in case you want to revert it
 The only modifications done to the file is to expose the currently loaded level index as a static integer for easier access and update it on level load, as well as printing the current level index and name to screen (defaults to off, toggled with F10)
 
 
-# Usage of ASL with LiveSplit
+## Usage of ASL with LiveSplit
 
 The ASL needs to be loaded with LiveSplit by adding a Scriptable Auto Splitter layout component (From Edit Layout...->[+ sign]) and adding the component from Control -menu. The settings can be reached by double clicking the component on the list. From there, selecting the ASL file from the Browse... -button should be enough. The game process should be automatically identified.
 
