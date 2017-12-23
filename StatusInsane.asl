@@ -28,6 +28,6 @@ isLoading {
 }
 
 update {
-	if (current.level == 26 && old.level == 25)
+	if (current.level == 26)
 		vars.timerModel.Reset();
 }
