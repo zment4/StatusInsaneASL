@@ -18,3 +18,4 @@ start {
 reset {
 	return current.level == 26;
 }
+	
