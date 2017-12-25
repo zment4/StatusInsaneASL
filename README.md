@@ -12,11 +12,11 @@ Added 100% category selector to the automatic splitter. Remember to select which
 
 Added collectible progress information for 100% runs. To update the info, you need text components with specific text in the Text1-field. The following identifiers are supported:
 
- - "Completion Rate" - the overall completion rate
- - "Hats Progress" - the collection progress of hats
- - "Arts Progress" - the collection progress of fine pieces of art
- - "Notes Progress" - the collection progress of random notes
- - "Fail Count" - the number of times you have failed
+ - ```Completion Rate``` - the overall completion rate
+ - ```Hats Progress``` - the collection progress of hats
+ - ```Arts Progress``` - the collection progress of fine pieces of art
+ - ```Notes Progress``` - the collection progress of random notes
+ - ```Fail Count``` - the number of times you have failed
  
 The Text2-field of the text component is then updated to reflect the progress of the current game. This value has two rows, so it's important to use Display 2 Rows -setting for the Text Components for it to render properly.
 
