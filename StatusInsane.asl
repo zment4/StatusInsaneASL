@@ -45,23 +45,173 @@ state("STATUS INSANE") {
 }
 
 startup {
-	print("started up");
+	timer.CurrentTimingMethod = TimingMethod.GameTime;
+	
+	settings.Add("fullRun", false, "100 % Required");
+	settings.SetToolTip("fullRun", "The last split isn't activated unless you have 100 % completion rate when exiting the last level");
+	
 	vars.timerModel = new TimerModel { CurrentState = timer };
 	
 	Func<float, float, string> stringFunc = (count, total) => {
-		return count + " / " + total + "\n" + string.Format("{0,3:##0}", Math.Floor(count / total * 100)) + " %";
+		System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+		return count + " / " + total + "\n" + string.Format("{0,3:##0.#}", Math.Floor(count / total * 100)) + " %";
 	};
-	vars.completionStringFunc = stringFunc;
+	vars.CompletionStringFunc = stringFunc;
+	vars.collection = new List<bool>() { false };
+	
+	Action<dynamic> progressAction = (c) => {
+		vars.collection = new List<bool>() {
+			c.RN01,
+			c.RN02,
+			c.RN03,
+			c.RN04,
+			c.RN05,
+			c.RN07,
+			c.RN08,
+			c.RN09,
+			c.RN10,
+			c.RN11,
+			c.RN12,
+			c.RN13,
+			c.RN14,
+			c.RN15,
+			c.Art01,
+			c.Art02,
+			c.Art03,
+			c.Art04,
+			c.Art06,
+			c.Art07,
+			c.Art08,
+			c.Art09,
+			c.Art10,
+			c.Art11,
+			c.Art12,
+			c.Art13,
+			c.Art14,
+			c.Art15,
+			c.Art17,
+			c.Hat01,
+			c.Hat02,
+			c.Hat03,
+			c.Hat04,
+			c.Hat05,
+			c.Hat06,
+			c.Hat07,
+			c.Hat08
+		}; 
+
+		vars.notes = new List<bool>() {
+			c.RN01,
+			c.RN02,
+			c.RN03,
+			c.RN04,
+			c.RN05,
+			c.RN07,
+			c.RN08,
+			c.RN09,
+			c.RN10,
+			c.RN11,
+			c.RN12,
+			c.RN13,
+			c.RN14,
+			c.RN15
+		}; 
+		
+		vars.arts = new List<bool>() {
+			c.Art01,
+			c.Art02,
+			c.Art03,
+			c.Art04,
+			c.Art06,
+			c.Art07,
+			c.Art08,
+			c.Art09,
+			c.Art10,
+			c.Art11,
+			c.Art12,
+			c.Art13,
+			c.Art14,
+			c.Art15,
+			c.Art17,
+		}; 	
+	
+		vars.hats = new List<bool>() {
+			c.Hat01,
+			c.Hat02,
+			c.Hat03,
+			c.Hat04,
+			c.Hat05,
+			c.Hat06,
+			c.Hat07,
+			c.Hat08
+		};
+	};
+	
+	vars.UpdateProgressAction = progressAction;
 	
 	vars.currentCompletionRate = stringFunc(0, 38);
 	vars.noteCompletion = stringFunc(0, 15);
 	vars.hatCompletion = stringFunc(0, 8);
 	vars.artCompletion = stringFunc(0, 15);
+	
+	Action<string, string> setTextComponent = (id, text) => {
+		var textSettings = timer.Layout.Components.Where(x => x.GetType().Name == "TextComponent").Select(x => x.GetType().GetProperty("Settings").GetValue(x, null));
+		var textSetting = textSettings.FirstOrDefault(x => (x.GetType().GetProperty("Text1").GetValue(x, null) as string) == id);
+		if (textSetting != null)
+		{
+			textSetting.GetType().GetProperty("Text2").SetValue(textSetting, text);
+		}
+	};
+	
+	vars.SetTextComponent = setTextComponent;
+	
+	vars.allCollected = false;
+}
+
+init {
+	vars.UpdateProgressAction(current);
+	
+	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38);
+	vars.noteCompletion = vars.CompletionStringFunc(0, 15);
+	vars.hatCompletion = vars.CompletionStringFunc(0, 8);
+	vars.artCompletion = vars.CompletionStringFunc(0, 15);
+	
+	vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
+	vars.SetTextComponent("Notes Progress", vars.noteCompletion);
+	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
+	vars.SetTextComponent("Arts Progress", vars.artCompletion);
 }
 
 split {
+	var isLastSplit = timer.CurrentSplitIndex == timer.Run.Count - 1;
+	
+	// on full run and last split, split only if everything is collected
+	if (settings["fullRun"] && isLastSplit)
+	{
+		return 
+			vars.allCollected && 
+			old.level != current.level && 
+			current.level == 25;
+	}
+	
+	// if last split, only split when entering the game outro
+	if (isLastSplit)
+	{
+		return 
+			old.level != current.level &&
+			current.level == 25;
+	}
+	
+	// Default to splitting on level change
 	if (old.level != current.level)
+	{
+		// able to finish run, make sure we are in the last split
+		if (((settings["fullRun"] && vars.allCollected) || !settings["fullRun"]) && current.level == 25)
+		{
+			timer.CurrentSplitIndex = timer.Run.Count - 1;
+		}
 		return true;
+	}
 }
 
 start {
@@ -82,106 +232,30 @@ isLoading {
 update {
 	if (current.level == 26)
 		vars.timerModel.Reset();
-		
-	List<bool> collection = new List<bool>() {
-		current.RN01,
-		current.RN02,
-		current.RN03,
-		current.RN04,
-		current.RN05,
-		current.RN07,
-		current.RN08,
-		current.RN09,
-		current.RN10,
-		current.RN11,
-		current.RN12,
-		current.RN13,
-		current.RN14,
-		current.RN15,
-		current.Art01,
-		current.Art02,
-		current.Art03,
-		current.Art04,
-		current.Art06,
-		current.Art07,
-		current.Art08,
-		current.Art09,
-		current.Art10,
-		current.Art11,
-		current.Art12,
-		current.Art13,
-		current.Art14,
-		current.Art15,
-		current.Art17,
-		current.Hat01,
-		current.Hat02,
-		current.Hat03,
-		current.Hat04,
-		current.Hat05,
-		current.Hat06,
-		current.Hat07,
-		current.Hat08
-	}; 
-
-	int totalItems = collection.Count + 1;
-	float itemsCollected = collection.Count(x => x) + (current.RN061 ? 0.5f : 0) + (current.RN062 ? 0.5f : 0);
 	
-	vars.currentCompletionRate = vars.completionStringFunc(itemsCollected, totalItems);
+	vars.UpdateProgressAction(current);
 	
-	List<bool> notes = new List<bool>() {
-		current.RN01,
-		current.RN02,
-		current.RN03,
-		current.RN04,
-		current.RN05,
-		current.RN07,
-		current.RN08,
-		current.RN09,
-		current.RN10,
-		current.RN11,
-		current.RN12,
-		current.RN13,
-		current.RN14,
-		current.RN15
-	}; 
+	int totalItems = vars.collection.Count + 1;
 	
-	List<bool> arts = new List<bool>() {
-		current.Art01,
-		current.Art02,
-		current.Art03,
-		current.Art04,
-		current.Art06,
-		current.Art07,
-		current.Art08,
-		current.Art09,
-		current.Art10,
-		current.Art11,
-		current.Art12,
-		current.Art13,
-		current.Art14,
-		current.Art15,
-		current.Art17,
-	}; 	
+	float itemsCollected = (vars.collection as List<bool>).Count(x => x) + (current.RN061 ? 0.5f : 0) + (current.RN062 ? 0.5f : 0);
 	
-	List<bool> hats = new List<bool>() {
-		current.Hat01,
-		current.Hat02,
-		current.Hat03,
-		current.Hat04,
-		current.Hat05,
-		current.Hat06,
-		current.Hat07,
-		current.Hat08
-	};
-
-	float notesCollected = notes.Count(x => x);
+	float notesCollected = (vars.notes as List<bool>).Count(x => x);
 	if (current.RN061) notesCollected += 0.5f;
 	if (current.RN062) notesCollected += 0.5f;
 	
-	int totalNotes = notes.Count + 1;
+	int totalNotes = vars.notes.Count + 1;
+
+	vars.allCollected = totalItems == (int) Math.Round(itemsCollected);
 	
-	vars.noteCompletion = vars.completionStringFunc(notesCollected, totalNotes);
+	vars.currentCompletionRate = vars.CompletionStringFunc(itemsCollected, totalItems);
+	vars.noteCompletion = vars.CompletionStringFunc(notesCollected, totalNotes);
+	vars.hatCompletion = vars.CompletionStringFunc((vars.hats as List<bool>).Count(x => x), vars.hats.Count);
+	vars.artCompletion = vars.CompletionStringFunc((vars.arts as List<bool>).Count(x => x), vars.arts.Count);			
 	
-	vars.hatCompletion = vars.completionStringFunc(hats.Count(x => x), hats.Count);
-	vars.artCompletion = vars.completionStringFunc(arts.Count(x => x), arts.Count);
+	vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
+	vars.SetTextComponent("Notes Progress", vars.noteCompletion);
+	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
+	vars.SetTextComponent("Arts Progress", vars.artCompletion);
+	
+	vars.SetTextComponent("Fail Count", current.FailCount.ToString());
 }

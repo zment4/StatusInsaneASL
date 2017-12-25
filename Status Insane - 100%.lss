@@ -13,7 +13,7 @@
   </Metadata>
   <Offset>00:00:00</Offset>
   <AttemptCount>0</AttemptCount>
-  <AttemptHistory />
+  <AttemptHistory/>
   <Segments>
     <Segment>
       <Name>Igor's Comfy Little Room</Name>
@@ -43,7 +43,7 @@
       <SegmentHistory />
     </Segment>
     <Segment>
-      <Name>Bigger Stakes</Name>
+      <Name>Bigger Stakes Part 1</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
@@ -52,7 +52,43 @@
       <SegmentHistory />
     </Segment>
     <Segment>
-      <Name>Ultimate Badassery</Name>
+      <Name>Gallery of Tolerable Art &amp; Mediocre Treasures</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Bigger Stakes Part 2</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Ultimate Badassery Part 1</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Angry Greg's Room</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Ultimate Badassery Part 2</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
@@ -88,6 +124,24 @@
       <SegmentHistory />
     </Segment>
     <Segment>
+      <Name>Scythezombie of Chernobyl Fan Greg's Room</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Explosive Things Part 2</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
       <Name>Dumpster Cutscene</Name>
       <Icon />
       <SplitTimes>
@@ -106,7 +160,7 @@
       <SegmentHistory />
     </Segment>
     <Segment>
-      <Name>Explosive Things Part 2</Name>
+      <Name>Explosive Things Part 3</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
@@ -169,7 +223,7 @@
       <SegmentHistory />
     </Segment>
     <Segment>
-      <Name>Cloning Chamber</Name>
+      <Name>Cloning Chamber Part 1</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
@@ -179,6 +233,33 @@
     </Segment>
     <Segment>
       <Name>Final Phase Part 1</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Final Phase Part 2 Quick Visit</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Cloning Chamber Part 2</Name>
+      <Icon />
+      <SplitTimes>
+        <SplitTime name="Personal Best" />
+      </SplitTimes>
+      <BestSegmentTime />
+      <SegmentHistory />
+    </Segment>
+    <Segment>
+      <Name>Paranoid Greg's Room</Name>
       <Icon />
       <SplitTimes>
         <SplitTime name="Personal Best" />
