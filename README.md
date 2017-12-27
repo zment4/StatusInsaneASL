@@ -1,6 +1,6 @@
 # LiveSplit Automatic Splitter for STATUS: INSANE
 
-ASL file for LiveSplit automatic splitting, with the splits properly set up for the auto-splitter. Currently only works with a modified game that exposes the currently loaded level ID, which is provided with permission from the developer.
+ASL file for LiveSplit automatic splitting, with the splits properly set up for the auto-splitter. Used to require a modified game .dll, but no longer does, as the required variables are now properly exposed in the official build as well.
 
 ## Latest updates
 
@@ -21,18 +21,6 @@ Added collectible progress information for 100% runs. To update the info, you ne
 The Text2-field of the text component is then updated to reflect the progress of the current game. This value has two rows, so it's important to use Display 2 Rows -setting for the Text Components for it to render properly.
 
 Included in this repo are example layouts for both Any% and 100% (with Fail Counts for Masochist runs). In these example files the Scriptable Autosplitter Component is set to the StatusInsane.asl - however, it won't work as the full path is needed. Replace this with the correct path to the file.
-
-## Installation and usage
-
-Copy the ```Assembly-CSharp.dll``` to 
-```
-<SteamLibrary>/steamapps/common/STATUS INSANE/STATUS INSANE_Data/Managed
-```
-
-It's a good idea to make a backup of the old file, in case you want to revert it, but if you forget the backup, you can also use Steam's Verify Integrity -functionality to restore the game to the original version.
-
-The only modifications done to the file is to expose the currently loaded level index as a static integer for easier access and update it on level load, as well as printing the current level index and name to screen (defaults to off, toggled with F10)
-
 
 ## Usage of ASL with LiveSplit
 
