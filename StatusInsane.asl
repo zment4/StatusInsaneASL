@@ -52,14 +52,14 @@ startup {
 	
 	vars.timerModel = new TimerModel { CurrentState = timer };
 	
-	Func<float, float, string> stringFunc = (count, total) => {
+	vars.CompletionStringFunc = (Func<float, float, string>)((count, total) => {
 		System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 		return count + " / " + total + "\n" + string.Format("{0,3:##0.#}", Math.Floor(count / total * 100)) + " %";
-	};
-	vars.CompletionStringFunc = stringFunc;
+	});
+	
 	vars.collection = new List<bool>() { false };
 	
-	Action<dynamic> progressAction = (c) => {
+	vars.UpdateProgressAction = (Action<dynamic>)((c) => {
 		vars.collection = new List<bool>() {
 			c.RN01,
 			c.RN02,
@@ -145,25 +145,21 @@ startup {
 			c.Hat07,
 			c.Hat08
 		};
-	};
+	});
 	
-	vars.UpdateProgressAction = progressAction;
+	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38);
+	vars.noteCompletion = vars.CompletionStringFunc(0, 15);
+	vars.hatCompletion = vars.CompletionStringFunc(0, 8);
+	vars.artCompletion = vars.CompletionStringFunc(0, 15);
 	
-	vars.currentCompletionRate = stringFunc(0, 38);
-	vars.noteCompletion = stringFunc(0, 15);
-	vars.hatCompletion = stringFunc(0, 8);
-	vars.artCompletion = stringFunc(0, 15);
-	
-	Action<string, string> setTextComponent = (id, text) => {
+	vars.SetTextComponent = (Action<string, string>)((id, text) => {
 		var textSettings = timer.Layout.Components.Where(x => x.GetType().Name == "TextComponent").Select(x => x.GetType().GetProperty("Settings").GetValue(x, null));
 		var textSetting = textSettings.FirstOrDefault(x => (x.GetType().GetProperty("Text1").GetValue(x, null) as string) == id);
 		if (textSetting != null)
 		{
 			textSetting.GetType().GetProperty("Text2").SetValue(textSetting, text);
 		}
-	};
-	
-	vars.SetTextComponent = setTextComponent;
+	});
 	
 	vars.allCollected = false;
 }
