@@ -217,7 +217,7 @@
         <Columns>
           <Settings>
             <Version>1.5</Version>
-            <Name>BSegD</Name>
+            <Name>To Best</Name>
             <Type>SegmentDelta</Type>
             <Comparison>Best Segments</Comparison>
             <TimingMethod>Current Timing Method</TimingMethod>
@@ -286,19 +286,6 @@
         <BackgroundGradient>Plain</BackgroundGradient>
         <Comparison>Current Comparison</Comparison>
         <Display2Rows>False</Display2Rows>
-      </Settings>
-    </Component>
-    <Component>
-      <Path>LiveSplit.ScriptableAutoSplit.dll</Path>
-      <Settings>
-        <Version>1.5</Version>
-        <ScriptPath>StatusInsane.asl</ScriptPath>
-        <Start>True</Start>
-        <Reset>True</Reset>
-        <Split>True</Split>
-        <CustomSettings>
-          <Setting id="fullRun" type="bool">True</Setting>
-        </CustomSettings>
       </Settings>
     </Component>
     <Component>

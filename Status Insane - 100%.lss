@@ -13,7 +13,7 @@
   </Metadata>
   <Offset>00:00:00</Offset>
   <AttemptCount>0</AttemptCount>
-  <AttemptHistory/>
+  <AttemptHistory />
   <Segments>
     <Segment>
       <Name>Igor's Comfy Little Room</Name>
@@ -286,5 +286,14 @@
       <SegmentHistory />
     </Segment>
   </Segments>
-  <AutoSplitterSettings />
+  <AutoSplitterSettings>
+    <Version>1.5</Version>
+    <ScriptPath>D:\LiveSplit_1.7.4\Components\StatusInsane.asl</ScriptPath>
+    <Start>True</Start>
+    <Reset>True</Reset>
+    <Split>True</Split>
+    <CustomSettings>
+      <Setting id="fullRun" type="bool">True</Setting>
+    </CustomSettings>
+  </AutoSplitterSettings>
 </Run>
