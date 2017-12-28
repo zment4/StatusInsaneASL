@@ -134,7 +134,7 @@
         <Columns>
           <Settings>
             <Version>1.5</Version>
-            <Name>BSegD</Name>
+            <Name>To Best</Name>
             <Type>SegmentDelta</Type>
             <Comparison>Best Segments</Comparison>
             <TimingMethod>Current Timing Method</TimingMethod>
@@ -220,7 +220,7 @@
         <CenteredText>True</CenteredText>
         <FilterRegion>False</FilterRegion>
         <FilterPlatform>False</FilterPlatform>
-        <FilterVariables>False</FilterVariables>
+        <FilterVariables>True</FilterVariables>
       </Settings>
     </Component>
     <Component>
