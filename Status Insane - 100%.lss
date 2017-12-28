@@ -9,7 +9,9 @@
     </Platform>
     <Region>
     </Region>
-    <Variables />
+    <Variables>
+      <Variable name="Run Type">Normal</Variable>
+    </Variables>
   </Metadata>
   <Offset>00:00:00</Offset>
   <AttemptCount>0</AttemptCount>
@@ -286,14 +288,5 @@
       <SegmentHistory />
     </Segment>
   </Segments>
-  <AutoSplitterSettings>
-    <Version>1.5</Version>
-    <ScriptPath>D:\LiveSplit_1.7.4\Components\StatusInsane.asl</ScriptPath>
-    <Start>True</Start>
-    <Reset>True</Reset>
-    <Split>True</Split>
-    <CustomSettings>
-      <Setting id="fullRun" type="bool">True</Setting>
-    </CustomSettings>
-  </AutoSplitterSettings>
+  <AutoSplitterSettings />
 </Run>

@@ -255,3 +255,17 @@ update {
 	
 	vars.SetTextComponent("Fail Count", current.FailCount.ToString());
 }
+
+shutdown {
+	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38);
+	vars.noteCompletion = vars.CompletionStringFunc(0, 15);
+	vars.hatCompletion = vars.CompletionStringFunc(0, 8);
+	vars.artCompletion = vars.CompletionStringFunc(0, 15);
+	
+	vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
+	vars.SetTextComponent("Notes Progress", vars.noteCompletion);
+	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
+	vars.SetTextComponent("Arts Progress", vars.artCompletion);
+	
+	vars.SetTextComponent("Fail Count", 0);
+}
