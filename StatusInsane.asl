@@ -267,5 +267,5 @@ shutdown {
 	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
 	vars.SetTextComponent("Arts Progress", vars.artCompletion);
 	
-	vars.SetTextComponent("Fail Count", 0);
+	vars.SetTextComponent("Fail Count", 0.ToString());
 }
