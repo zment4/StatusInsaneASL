@@ -162,6 +162,15 @@ startup {
 	});
 	
 	vars.allCollected = false;
+	
+	vars.ShouldReset = (Func<dynamic, dynamic, dynamic, dynamic, bool>)((o, c, t, s) => {
+		if (s["fullRun"])
+		{
+			return c.level == 26 && ((o.level == 25 && t.CurrentPhase == TimerPhase.Ended) || (o.level != 25 && o.level != 26)) ;
+		}
+		
+		return c.level == 26;
+	});
 }
 
 init {
@@ -218,7 +227,7 @@ start {
 }
 
 reset {
-	return current.level == 26;
+	return vars.ShouldReset(old, current, timer, settings);	
 }
 
 isLoading {
@@ -226,7 +235,7 @@ isLoading {
 }
 
 update {
-	if (current.level == 26)
+	if (vars.ShouldReset(old, current, timer, settings))
 		vars.timerModel.Reset();
 	
 	vars.UpdateProgressAction(current);
