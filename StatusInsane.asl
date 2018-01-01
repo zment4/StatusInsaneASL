@@ -47,17 +47,25 @@ state("STATUS INSANE") {
 startup {
 	timer.CurrentTimingMethod = TimingMethod.GameTime;
 	
-	settings.Add("fullRun", false, "100 % Required");
-	settings.SetToolTip("fullRun", "The last split isn't activated unless you have 100 % completion rate when exiting the last level");
-	
 	vars.timerModel = new TimerModel { CurrentState = timer };
-	
-	vars.CompletionStringFunc = (Func<float, float, string>)((count, total) => {
-		System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-		return count + " / " + total + "\n" + string.Format("{0,3:##0.#}", Math.Floor(count / total * 100)) + " %";
-	});
-	
+	vars.fullRun = timer.Run.CategoryName == "100%" || timer.Run.CategoryName == "OYB%";
+	vars.oybRun = timer.Run.CategoryName == "OYB%";
+			
+	vars.allCollected = false;
+		
 	vars.collection = new List<bool>() { false };
+	
+	vars.CompletionStringFunc = (Func<float, float, bool, string>)((count, total, showPercentage) => {
+		System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+		var ret = "";
+		
+		if (showPercentage)
+			ret += string.Format("{0,3:##0.#}", Math.Floor(count / total * 100)) + " %";
+			
+		ret += (showPercentage ? "\n" : "") + count + " / " + total;
+		
+		return ret;
+	});
 	
 	vars.UpdateProgressAction = (Action<dynamic>)((c) => {
 		vars.collection = new List<bool>() {
@@ -145,12 +153,12 @@ startup {
 			c.Hat07,
 			c.Hat08
 		};
+		
+		vars.oybHats = new List<bool>() { 
+			c.Hat07, 
+			c.Hat08 
+		};
 	});
-	
-	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38);
-	vars.noteCompletion = vars.CompletionStringFunc(0, 15);
-	vars.hatCompletion = vars.CompletionStringFunc(0, 8);
-	vars.artCompletion = vars.CompletionStringFunc(0, 15);
 	
 	vars.SetTextComponent = (Action<string, string>)((id, text) => {
 		var textSettings = timer.Layout.Components.Where(x => x.GetType().Name == "TextComponent").Select(x => x.GetType().GetProperty("Settings").GetValue(x, null));
@@ -161,37 +169,69 @@ startup {
 		}
 	});
 	
-	vars.allCollected = false;
+	vars.SetTextComponentColor = (Action<string, System.Drawing.Color>)((id, color) => {
+		var textSettings = timer.Layout.Components.Where(x => x.GetType().Name == "TextComponent").Select(x => x.GetType().GetProperty("Settings").GetValue(x, null));
+		var textSetting = textSettings.FirstOrDefault(x => (x.GetType().GetProperty("Text1").GetValue(x, null) as string) == id);
+		if (textSetting != null)
+		{
+			if (color == System.Drawing.Color.White)
+			{
+				textSetting.GetType().GetProperty("OverrideTextColor").SetValue(textSetting, false);
+				textSetting.GetType().GetProperty("OverrideTimeColor").SetValue(textSetting, false);
+			} else {
+				textSetting.GetType().GetProperty("TextColor").SetValue(textSetting, color);
+				textSetting.GetType().GetProperty("OverrideTextColor").SetValue(textSetting, true);
+				textSetting.GetType().GetProperty("TimeColor").SetValue(textSetting, color);
+				textSetting.GetType().GetProperty("OverrideTimeColor").SetValue(textSetting, true);
+			}
+		}		
+	});
 	
 	vars.ShouldReset = (Func<dynamic, dynamic, dynamic, dynamic, bool>)((o, c, t, s) => {
-		if (s["fullRun"])
+		if (vars.fullRun)
 		{
 			return c.level == 26 && ((o.level == 25 && t.CurrentPhase == TimerPhase.Ended) || (o.level != 25 && o.level != 26)) ;
 		}
 		
 		return c.level == 26;
 	});
+	
+	vars.UpdateTextComponents = (Action)(() => {
+		vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
+		vars.SetTextComponent("Notes Progress", vars.noteCompletion);
+		vars.SetTextComponent("Hats Progress", vars.hatCompletion);
+		vars.SetTextComponent("Arts Progress", vars.artCompletion);
+		vars.SetTextComponent("Fail Count", vars.failCount.ToString());
+		
+		var isMasochist = timer.Run.GetExtendedCategoryName(false, false, true).Contains("Masochist");
+		vars.SetTextComponentColor("Fail Count", isMasochist && vars.failCount > 0 ? System.Drawing.Color.Red : System.Drawing.Color.White);
+	});	
+	
+	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38, true);
+	vars.noteCompletion = vars.CompletionStringFunc(0, 15, false);
+	vars.hatCompletion = vars.CompletionStringFunc(0, vars.oybRun ? 2 : 8, false);
+	vars.artCompletion = vars.CompletionStringFunc(0, 15, false);
+	vars.failCount = 0;
+	
+	vars.UpdateTextComponents();
 }
 
 init {
 	vars.UpdateProgressAction(current);
 	
-	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38);
-	vars.noteCompletion = vars.CompletionStringFunc(0, 15);
-	vars.hatCompletion = vars.CompletionStringFunc(0, 8);
-	vars.artCompletion = vars.CompletionStringFunc(0, 15);
+	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38, true);
+	vars.noteCompletion = vars.CompletionStringFunc(0, 15, false);
+	vars.hatCompletion = vars.CompletionStringFunc(0, vars.oybRun ? 2 : 8, false);
+	vars.artCompletion = vars.CompletionStringFunc(0, 15, false);
 	
-	vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
-	vars.SetTextComponent("Notes Progress", vars.noteCompletion);
-	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
-	vars.SetTextComponent("Arts Progress", vars.artCompletion);
+	vars.UpdateTextComponents();
 }
 
 split {
 	var isLastSplit = timer.CurrentSplitIndex == timer.Run.Count - 1;
 	
 	// on full run and last split, split only if everything is collected
-	if (settings["fullRun"] && isLastSplit)
+	if (vars.fullRun && isLastSplit)
 	{
 		return 
 			vars.allCollected && 
@@ -211,7 +251,7 @@ split {
 	if (old.level != current.level)
 	{
 		// able to finish run, make sure we are in the last split
-		if (((settings["fullRun"] && vars.allCollected) || !settings["fullRun"]) && current.level == 25)
+		if (((vars.fullRun && vars.allCollected) || !vars.fullRun) && current.level == 25)
 		{
 			timer.CurrentSplitIndex = timer.Run.Count - 1;
 		}
@@ -249,32 +289,28 @@ update {
 	if (current.RN062) notesCollected += 0.5f;
 	
 	int totalNotes = vars.notes.Count + 1;
+	
+	vars.allCollected = vars.oybRun ? (vars.oybHats as List<bool>).All(x => x) : totalItems == (int) Math.Round(itemsCollected);
 
-	vars.allCollected = totalItems == (int) Math.Round(itemsCollected);
+	int hatsCollected = vars.oybRun ? (vars.oybHats as List<bool>).Count(x => x) : (vars.hats as List<bool>).Count(x => x);
+	int hatsTotal = vars.oybRun ? vars.oybHats.Count : vars.hats.Count;
 	
-	vars.currentCompletionRate = vars.CompletionStringFunc(itemsCollected, totalItems);
-	vars.noteCompletion = vars.CompletionStringFunc(notesCollected, totalNotes);
-	vars.hatCompletion = vars.CompletionStringFunc((vars.hats as List<bool>).Count(x => x), vars.hats.Count);
-	vars.artCompletion = vars.CompletionStringFunc((vars.arts as List<bool>).Count(x => x), vars.arts.Count);			
+	vars.currentCompletionRate = vars.CompletionStringFunc(itemsCollected, totalItems, true);
+	vars.noteCompletion = vars.CompletionStringFunc(notesCollected, totalNotes, false);
+	vars.hatCompletion = vars.CompletionStringFunc(hatsCollected, hatsTotal, false);
+	vars.artCompletion = vars.CompletionStringFunc((vars.arts as List<bool>).Count(x => x), vars.arts.Count, false);
+	vars.failCount = current.FailCount;
 	
-	vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
-	vars.SetTextComponent("Notes Progress", vars.noteCompletion);
-	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
-	vars.SetTextComponent("Arts Progress", vars.artCompletion);
+	vars.UpdateTextComponents();
 	
-	vars.SetTextComponent("Fail Count", current.FailCount.ToString());
 }
 
 shutdown {
-	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38);
-	vars.noteCompletion = vars.CompletionStringFunc(0, 15);
-	vars.hatCompletion = vars.CompletionStringFunc(0, 8);
-	vars.artCompletion = vars.CompletionStringFunc(0, 15);
+	vars.currentCompletionRate = vars.CompletionStringFunc(0, 38, true);
+	vars.noteCompletion = vars.CompletionStringFunc(0, 15, false);
+	vars.hatCompletion = vars.CompletionStringFunc(0, 8, false);
+	vars.artCompletion = vars.CompletionStringFunc(0, 15, false);
+	vars.failCount = 0;
 	
-	vars.SetTextComponent("Completion Rate", vars.currentCompletionRate);
-	vars.SetTextComponent("Notes Progress", vars.noteCompletion);
-	vars.SetTextComponent("Hats Progress", vars.hatCompletion);
-	vars.SetTextComponent("Arts Progress", vars.artCompletion);
-	
-	vars.SetTextComponent("Fail Count", 0.ToString());
+	vars.UpdateTextComponents();
 }
