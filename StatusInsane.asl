@@ -193,7 +193,7 @@ startup {
 			return c.level == 26 && ((o.level == 25 && t.CurrentPhase == TimerPhase.Ended) || (o.level != 25 && o.level != 26)) ;
 		}
 		
-		return c.level == 26;
+		return o.level != 26 && c.level == 26;
 	});
 	
 	vars.UpdateTextComponents = (Action)(() => {
