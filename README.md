@@ -10,15 +10,17 @@ Added logic to finishing a run - if you are on the last split, and change levels
 
 Added 100% category selector to the automatic splitter. Remember to select which one you want with Layout->Scriptable Autosplitter Component. Default is disabled, so Any%.
 
-Added collectible progress information for 100% runs. To update the info, you need text components with specific text in the Text1-field. The following identifiers are supported:
+Added collectible progress information for 100% runs. To update the info, you need text components with specific text in the Left Text -field. The following identifiers are supported:
 
  - ```Completion Rate``` - the overall completion rate
  - ```Hats Progress``` - the collection progress of hats
  - ```Arts Progress``` - the collection progress of fine pieces of art
  - ```Notes Progress``` - the collection progress of random notes
  - ```Fail Count``` - the number of times you have failed
- 
-The Text2-field of the text component is then updated to reflect the progress of the current game. This value has two rows, so it's important to use Display 2 Rows -setting for the Text Components for it to render properly.
+
+![Add the identifier here](HowToAddVariable.png)
+
+The Right Text-field of the text component is then updated to reflect the progress of the current game. This value has two rows, so it's important to use Display 2 Rows -setting for the Text Components for it to render properly.
 
 Included in this repo are example layouts for both Any% and 100% (with Fail Counts for Masochist runs). In these example files the Scriptable Autosplitter Component is set to the StatusInsane.asl - however, it won't work as the full path is needed. Replace this with the correct path to the file.
 
