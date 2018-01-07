@@ -1,50 +1,52 @@
 state("STATUS INSANE") {	
-	int level 	   : "mono.dll", 0x00262110, 0x50, 0x88;
-	bool isLoading : "mono.dll", 0x00262110, 0x50, 0x85; 
-	bool RN01	   : "mono.dll", 0x00262110, 0x50, 0x40;
-	bool RN02	   : "mono.dll", 0x00262110, 0x50, 0x41;
-	bool RN03	   : "mono.dll", 0x00262110, 0x50, 0x42;
-	bool RN04	   : "mono.dll", 0x00262110, 0x50, 0x43;
-	bool RN05	   : "mono.dll", 0x00262110, 0x50, 0x44;
-	bool RN061	   : "mono.dll", 0x00262110, 0x50, 0x45;
-	bool RN062	   : "mono.dll", 0x00262110, 0x50, 0x46;
-	bool RN07	   : "mono.dll", 0x00262110, 0x50, 0x47;
-	bool RN08	   : "mono.dll", 0x00262110, 0x50, 0x48;
-	bool RN09	   : "mono.dll", 0x00262110, 0x50, 0x49;
-	bool RN10	   : "mono.dll", 0x00262110, 0x50, 0x4a;
-	bool RN11	   : "mono.dll", 0x00262110, 0x50, 0x4b;
-	bool RN12	   : "mono.dll", 0x00262110, 0x50, 0x4c;
-	bool RN13	   : "mono.dll", 0x00262110, 0x50, 0x4d;
-	bool RN14	   : "mono.dll", 0x00262110, 0x50, 0x4e;
-	bool RN15	   : "mono.dll", 0x00262110, 0x50, 0x4f;
-	bool RN16	   : "mono.dll", 0x00262110, 0x50, 0x50;
-	bool Art01	   : "mono.dll", 0x00262110, 0x50, 0x66;
-	bool Art02	   : "mono.dll", 0x00262110, 0x50, 0x67;
-	bool Art03	   : "mono.dll", 0x00262110, 0x50, 0x68;
-	bool Art04	   : "mono.dll", 0x00262110, 0x50, 0x69;
-	bool Art06	   : "mono.dll", 0x00262110, 0x50, 0x6a;
-	bool Art07	   : "mono.dll", 0x00262110, 0x50, 0x6b;
-	bool Art08	   : "mono.dll", 0x00262110, 0x50, 0x6c;
-	bool Art09	   : "mono.dll", 0x00262110, 0x50, 0x6d;
-	bool Art10	   : "mono.dll", 0x00262110, 0x50, 0x6e;
-	bool Art11	   : "mono.dll", 0x00262110, 0x50, 0x6f;
-	bool Art12	   : "mono.dll", 0x00262110, 0x50, 0x70;
-	bool Art13	   : "mono.dll", 0x00262110, 0x50, 0x71;
-	bool Art14	   : "mono.dll", 0x00262110, 0x50, 0x72;
-	bool Art15	   : "mono.dll", 0x00262110, 0x50, 0x73;
-	bool Art17	   : "mono.dll", 0x00262110, 0x50, 0x74;
-	bool Hat01	   : "mono.dll", 0x00262110, 0x50, 0x75;	
-	bool Hat02	   : "mono.dll", 0x00262110, 0x50, 0x76;	
-	bool Hat03	   : "mono.dll", 0x00262110, 0x50, 0x77;	
-	bool Hat04	   : "mono.dll", 0x00262110, 0x50, 0x78;	
-	bool Hat05	   : "mono.dll", 0x00262110, 0x50, 0x79;	
-	bool Hat06	   : "mono.dll", 0x00262110, 0x50, 0x7a;	
-	bool Hat07	   : "mono.dll", 0x00262110, 0x50, 0x7b;	
-	bool Hat08	   : "mono.dll", 0x00262110, 0x50, 0x7c;
-	int FailCount  : "mono.dll", 0x00262110, 0x50, 0x130;
+	int level 	   : "mono.dll", 0x00262110, 0xA0, 0x88;
+	bool isLoading : "mono.dll", 0x00262110, 0xA0, 0x85; 
+	bool RN01	   : "mono.dll", 0x00262110, 0xA0, 0x40;
+	bool RN02	   : "mono.dll", 0x00262110, 0xA0, 0x41;
+	bool RN03	   : "mono.dll", 0x00262110, 0xA0, 0x42;
+	bool RN04	   : "mono.dll", 0x00262110, 0xA0, 0x43;
+	bool RN05	   : "mono.dll", 0x00262110, 0xA0, 0x44;
+	bool RN061	   : "mono.dll", 0x00262110, 0xA0, 0x45;
+	bool RN062	   : "mono.dll", 0x00262110, 0xA0, 0x46;
+	bool RN07	   : "mono.dll", 0x00262110, 0xA0, 0x47;
+	bool RN08	   : "mono.dll", 0x00262110, 0xA0, 0x48;
+	bool RN09	   : "mono.dll", 0x00262110, 0xA0, 0x49;
+	bool RN10	   : "mono.dll", 0x00262110, 0xA0, 0x4a;
+	bool RN11	   : "mono.dll", 0x00262110, 0xA0, 0x4b;
+	bool RN12	   : "mono.dll", 0x00262110, 0xA0, 0x4c;
+	bool RN13	   : "mono.dll", 0x00262110, 0xA0, 0x4d;
+	bool RN14	   : "mono.dll", 0x00262110, 0xA0, 0x4e;
+	bool RN15	   : "mono.dll", 0x00262110, 0xA0, 0x4f;
+	bool RN16	   : "mono.dll", 0x00262110, 0xA0, 0x50;
+	bool Art01	   : "mono.dll", 0x00262110, 0xA0, 0x66;
+	bool Art02	   : "mono.dll", 0x00262110, 0xA0, 0x67;
+	bool Art03	   : "mono.dll", 0x00262110, 0xA0, 0x68;
+	bool Art04	   : "mono.dll", 0x00262110, 0xA0, 0x69;
+	bool Art06	   : "mono.dll", 0x00262110, 0xA0, 0x6a;
+	bool Art07	   : "mono.dll", 0x00262110, 0xA0, 0x6b;
+	bool Art08	   : "mono.dll", 0x00262110, 0xA0, 0x6c;
+	bool Art09	   : "mono.dll", 0x00262110, 0xA0, 0x6d;
+	bool Art10	   : "mono.dll", 0x00262110, 0xA0, 0x6e;
+	bool Art11	   : "mono.dll", 0x00262110, 0xA0, 0x6f;
+	bool Art12	   : "mono.dll", 0x00262110, 0xA0, 0x70;
+	bool Art13	   : "mono.dll", 0x00262110, 0xA0, 0x71;
+	bool Art14	   : "mono.dll", 0x00262110, 0xA0, 0x72;
+	bool Art15	   : "mono.dll", 0x00262110, 0xA0, 0x73;
+	bool Art17	   : "mono.dll", 0x00262110, 0xA0, 0x74;
+	bool Hat01	   : "mono.dll", 0x00262110, 0xA0, 0x75;	
+	bool Hat02	   : "mono.dll", 0x00262110, 0xA0, 0x76;	
+	bool Hat03	   : "mono.dll", 0x00262110, 0xA0, 0x77;	
+	bool Hat04	   : "mono.dll", 0x00262110, 0xA0, 0x78;	
+	bool Hat05	   : "mono.dll", 0x00262110, 0xA0, 0x79;	
+	bool Hat06	   : "mono.dll", 0x00262110, 0xA0, 0x7a;	
+	bool Hat07	   : "mono.dll", 0x00262110, 0xA0, 0x7b;	
+	bool Hat08	   : "mono.dll", 0x00262110, 0xA0, 0x7c;
+	int FailCount  : "mono.dll", 0x00262110, 0xA0, 0x130;
 }
 
 startup {
+	System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
 	timer.CurrentTimingMethod = TimingMethod.GameTime;
 	
 	vars.timerModel = new TimerModel { CurrentState = timer };
@@ -56,7 +58,6 @@ startup {
 	vars.collection = new List<bool>() { false };
 	
 	vars.CompletionStringFunc = (Func<float, float, bool, string>)((count, total, showPercentage) => {
-		System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 		var ret = "";
 		
 		if (showPercentage)
