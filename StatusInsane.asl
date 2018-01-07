@@ -249,7 +249,7 @@ split {
 	}
 	
 	// Default to splitting on level change
-	if (old.level != current.level)
+	if (old.level != current.level && old.level != 26)
 	{
 		// able to finish run, make sure we are in the last split
 		if (((vars.fullRun && vars.allCollected) || !vars.fullRun) && current.level == 25)
